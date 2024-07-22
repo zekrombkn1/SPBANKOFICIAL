@@ -1,0 +1,80 @@
+.transfer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 100px;
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    min-height: 100vh;
+    color: white;
+}
+
+.transfer h1 {
+    color: #393635;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    margin-bottom: 30px;
+}
+
+.form-container {
+    background: rgb(241, 174, 138);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 50%;
+    max-width: 600px;
+    color: black;
+}
+
+.form-container label {
+    font-family: 'Arial', sans-serif;
+    font-size: 1.2em;
+    display: block;
+    margin-bottom: 10px;
+    color: rgb(205, 40, 18);
+}
+
+.form-container .hint {
+    font-size: 0.8em;
+    color: #dddddd;
+    margin-left: 10px;
+}
+
+.form-container input,
+.form-container select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.form-container input[type="text"] {
+    appearance: textfield;
+}
+
+.form-container input::-webkit-outer-spin-button,
+.form-container input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.form-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #ff7e5f;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    color: white;
+    cursor: pointer;
+}
+
+.form-container button:hover {
+    background-color: #e96d5b;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}

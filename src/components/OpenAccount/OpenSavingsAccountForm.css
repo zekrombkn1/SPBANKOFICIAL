@@ -1,0 +1,57 @@
+body {
+    background-color: #f5f5f5;  /* Softer light grey background */
+}
+
+.card {
+    border: none;
+}
+
+.card-header {
+    background-color: #ff704d;  /* Orange background for title */
+    color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.styled-title {
+    font-family: 'Arial', sans-serif;
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+.styled-label {
+    font-family: 'Arial', sans-serif;
+    font-size: 1.2em;
+    color: black;  /* Black color for labels */
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* OpenCreditAccountForm.css */
+
+.alert-danger {
+    font-size: 1.5em; /* Aumentar el tamaño de la letra */
+    text-align: center; /* Centrar el texto */
+    margin: 20px auto; /* Añadir margen */
+    width: 80%; /* Ajustar el ancho */
+    font-family: 'Arial', sans-serif; /* Cambiar la fuente */
+    font-weight: bold; /* Hacerlo en negrita */
+    background-color: #f8d7da; /* Fondo del mensaje de error */
+    color: #721c24; /* Color del texto del mensaje de error */
+    border: 1px solid #f5c6cb; /* Borde del mensaje de error */
+    border-radius: 10px; /* Bordes redondeados */
+}
+
+
+
+
+.styled-button {
+    background-color: #ff704d;  /* Orange button */
+    border: none;
+    padding: 10px;
+    font-size: 1.2em;
+}
+
+.styled-button:hover {
+    background-color: #e65c3c;  /* Darker orange on hover */
+}

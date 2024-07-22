@@ -1,0 +1,71 @@
+.dashboard-content {
+    background: rgb(241, 174, 138); /* Inner background */
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Outline */
+    width: 80%; /* Adjust the width to be more significant */
+    max-width: 1200px; /* Ensure it doesn't get too wide */
+    margin: 20px auto; /* Center the content and add margin */
+    color: white;
+    text-align: center; /* Center the text */
+}
+
+.dashboard h1 {
+    margin-top: 0; /* Adjust the top margin to move it up */
+    color: #393635; /* Change the color for better contrast */
+    font-family: 'Arial', sans-serif; /* Use a nicer font */
+    font-weight: bold; /* Make it bold */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Add a subtle shadow */
+    font-size: 2.5em; /* Increase font size */
+}
+
+.alert-danger {
+    font-size: 1.5em; /* Aumentar el tamaño de la letra */
+    text-align: center; /* Centrar el texto */
+    margin: 20px auto; /* Añadir margen */
+    width: 80%; /* Ajustar el ancho */
+    font-family: 'Arial', sans-serif; /* Cambiar la fuente */
+    font-weight: bold; /* Hacerlo en negrita */
+    background-color: #f8d7da; /* Fondo del mensaje de error */
+    color: #721c24; /* Color del texto del mensaje de error */
+    border: 1px solid #f5c6cb; /* Borde del mensaje de error */
+    border-radius: 10px; /* Bordes redondeados */
+}
+
+.account-balances {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 40px; /* Add some margin to space it from the title */
+}
+
+.account {
+    flex: 1;
+    margin: 0 20px;
+    text-align: center;
+}
+
+.account-card {
+    background: rgb(237, 118, 43); /* White background */
+    border: 2px solid red; /* Red outline */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); /* Subtle shadow */
+    padding: 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.account-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+}
+
+.account h5 {
+    margin-bottom: 10px;
+    color: black; /* Adjust text color for better contrast */
+}
+
+.account p {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: lightgreen; /* Light green text for amounts */
+}

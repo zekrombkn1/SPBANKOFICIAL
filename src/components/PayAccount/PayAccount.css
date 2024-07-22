@@ -1,0 +1,66 @@
+.container {
+    max-width: 920px; /* Aumentado en un 15% desde 800px */
+    margin: auto;
+}
+
+.card {
+    background: rgb(241, 174, 138);
+    border: none;
+    border-radius: 20px;
+}
+
+.card-header {
+    background: #4d4dff;
+    color: white;
+    border-radius: 10px 10px 0 0;
+}
+
+.styled-title {
+    font-family: 'Arial', sans-serif;
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+.styled-label {
+    font-family: 'Arial', sans-serif;
+    font-size: 1.2em;
+    color: black;
+}
+
+.styled-button {
+    background-color: #4d4dff;
+    border: none;
+    padding: 10px;
+    font-size: 1.2em;
+}
+
+.styled-button:hover {
+    background-color: #3333cc;
+}
+
+.alert-danger {
+    font-size: 1.5em;
+    text-align: center;
+    margin: 20px auto;
+    width: 80%;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 10px;
+}
+
+.list-group {
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.list-group-item {
+    font-size: 1em;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #f1f1f1;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}

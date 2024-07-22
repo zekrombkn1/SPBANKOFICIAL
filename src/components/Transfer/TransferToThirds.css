@@ -1,0 +1,52 @@
+.transfer {
+    text-align: center;
+    padding: 20px;
+}
+
+.form-container {
+    display: inline-block;
+    text-align: left;
+    padding: 20px;
+    border-radius: 10px;
+    background: #f9f9f9;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    max-width: 600px;
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #333;
+}
+
+.button-container {
+    text-align: center;
+}
+
+.hint {
+    font-size: 0.9em;
+    color: #888;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}
