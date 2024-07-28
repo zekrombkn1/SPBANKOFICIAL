@@ -1,52 +1,110 @@
+/* General page styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Container for the entire transfer section */
 .transfer {
-    text-align: center;
-    padding: 20px;
-}
-
-.form-container {
-    display: inline-block;
-    text-align: left;
-    padding: 20px;
-    border-radius: 10px;
-    background: #f9f9f9;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-    max-width: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
     width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
+/* Styling the form container */
+.form-container {
+    background: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Individual form group styling */
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    text-align: left;
 }
 
+/* Label styling */
 .form-group label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     font-weight: bold;
+    font-size: 1em;
+    color: #333;
 }
 
+/* Input and select styling */
 .form-group input,
 .form-group select {
-    width: 100%;
+    width: calc(100% - 20px);
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box;
 }
 
+/* Focus state for inputs and selects */
 .form-group input:focus,
 .form-group select:focus {
-    border-color: #333;
+    border-color: #ff7e5f;
+    outline: none;
 }
 
+/* Button container styling */
 .button-container {
     text-align: center;
 }
 
+/* Button styling */
+button {
+    background: #ff7e5f;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #feb47b;
+}
+
+/* Hint text styling */
 .hint {
     font-size: 0.9em;
     color: #888;
+    text-align: left;
 }
 
+/* Error message styling */
 .error {
     color: red;
     font-weight: bold;
+    text-align: left;
+    margin-top: 10px;
+}
+
+/* Page heading styling */
+h1 {
+    color: #fff;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 2em;
 }

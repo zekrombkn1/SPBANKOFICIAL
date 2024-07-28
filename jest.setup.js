@@ -1,4 +1,3 @@
-import { TextEncoder, TextDecoder } from 'text-encoding';
-
-global.TextEncoder = TextEncoder;
-global.TextDecoder = TextDecoder;
+require('whatwg-fetch');
+global.TextEncoder = require('util').TextEncoder;
+global.TextDecoder = require('util').TextDecoder;

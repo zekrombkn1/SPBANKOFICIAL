@@ -18,12 +18,14 @@ const RegisterRUT = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log('RUT submitted:', rut); // Agrega log para verificar el RUT
         if (rut.length < 8 || rut.length > 9) {
             setError('RUT debe tener entre 8 y 9 dígitos.');
             return;
         }
         try {
             const formattedRUT = formatRUT(rut);
+            console.log('Formatted RUT:', formattedRUT); // Agrega log para verificar el RUT formateado
             await setRUT(userID, formattedRUT);
             navigate('/'); // Redirigir al dashboard después de guardar el RUT
         } catch (error) {
@@ -38,8 +40,9 @@ const RegisterRUT = () => {
                 <h1>Registro de RUT</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label>RUT:</label>
+                        <label htmlFor="rut">RUT:</label>
                         <input
+                            id="rut"
                             type="text"
                             value={rut}
                             onChange={(e) => setRutValue(e.target.value)}

@@ -1,3 +1,5 @@
+// src/components/OpenAccount/OpenCreditAccountForm.js
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -84,22 +86,15 @@ const OpenCreditAccountForm = () => {
                         </div>
                         <div className="card-body">
                             {error && (
-                                <>
-                                    <div className="alert alert-danger">{error}</div>
-                                    <button 
-                                        className="btn btn-primary btn-block styled-button" 
-                                        onClick={() => navigate('/dashboard')}
-                                    >
-                                        Volver a Home
-                                    </button>
-                                </>
+                                <div className="alert alert-danger">{error}</div>
                             )}
                             {!error && (
                                 <form onSubmit={handleSubmit}>
                                     <div className="form-row">
                                         <div className="form-group col-md-6">
-                                            <label className="form-label styled-label">Nombres:</label>
+                                            <label htmlFor="firstName" className="form-label styled-label">Nombres:</label>
                                             <input
+                                                id="firstName"
                                                 type="text"
                                                 className="form-control"
                                                 name="firstName"
@@ -108,8 +103,9 @@ const OpenCreditAccountForm = () => {
                                             />
                                         </div>
                                         <div className="form-group col-md-6">
-                                            <label className="form-label styled-label">Apellido Paterno:</label>
+                                            <label htmlFor="lastName" className="form-label styled-label">Apellido Paterno:</label>
                                             <input
+                                                id="lastName"
                                                 type="text"
                                                 className="form-control"
                                                 name="lastName"
@@ -120,8 +116,9 @@ const OpenCreditAccountForm = () => {
                                     </div>
                                     <div className="form-row">
                                         <div className="form-group col-md-6">
-                                            <label className="form-label styled-label">Situación Laboral:</label>
+                                            <label htmlFor="employmentStatus" className="form-label styled-label">Situación Laboral:</label>
                                             <select
+                                                id="employmentStatus"
                                                 className="form-control"
                                                 name="employmentStatus"
                                                 value={formData.employmentStatus}
@@ -134,8 +131,9 @@ const OpenCreditAccountForm = () => {
                                             </select>
                                         </div>
                                         <div className="form-group col-md-6">
-                                            <label className="form-label styled-label">Tramo de renta líquido:</label>
+                                            <label htmlFor="incomeRange" className="form-label styled-label">Tramo de renta líquido:</label>
                                             <select
+                                                id="incomeRange"
                                                 className="form-control"
                                                 name="incomeRange"
                                                 value={formData.incomeRange}
@@ -150,13 +148,14 @@ const OpenCreditAccountForm = () => {
                                         </div>
                                     </div>
                                     <div className="form-group">
-                                        <label className="form-label styled-label">Birthday:</label>
+                                        <label htmlFor="birthday" className="form-label styled-label">Birthday:</label>
                                         <DatePicker
                                             selected={formData.birthday}
                                             onChange={(date) => setFormData({ ...formData, birthday: date })}
                                             className="form-control"
                                             dateFormat="MM/dd/yyyy"
                                             required
+                                            id="birthday"
                                         />
                                     </div>
                                     <button type="submit" className="btn btn-primary btn-block styled-button">Submit</button>

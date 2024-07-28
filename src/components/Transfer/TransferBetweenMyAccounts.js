@@ -1,127 +1,98 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import './TransferBetweenMyAccounts.css';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getAccountBalance, updateAccountBalance } from '../Utils/firestoreUtils';
-import { useGetUserInfo } from '../../hooks/useGetUserInfo';
+import { transferFunds } from '../Utils/firestoreUtils';
 
-const Transfer = ({ to }) => {
-    const userInfo = useGetUserInfo();
-    const userID = userInfo ? userInfo.userID : null;
+const TransferBetweenMyAccounts = () => {
     const [originAccount, setOriginAccount] = useState('');
     const [destinationAccount, setDestinationAccount] = useState('');
     const [amount, setAmount] = useState('');
-    const [balances, setBalances] = useState({});
-    const [error, setError] = useState('');
+    const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchBalances = async () => {
-            try {
-                if (userID) {
-                    const checkingBalance = await getAccountBalance(userID, 'checking');
-                    const savingsBalance = await getAccountBalance(userID, 'savings');
-                    const creditBalance = await getAccountBalance(userID, 'credit');
-
-                    setBalances({
-                        checking: checkingBalance,
-                        savings: savingsBalance,
-                        credit: creditBalance
-                    });
-                }
-            } catch (error) {
-                console.error('Error fetching account balances:', error);
-            }
-        };
-
-        fetchBalances();
-    }, [userID]);
-
-    const handleTransfer = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        let validationErrors = [];
 
         if (originAccount === '' || destinationAccount === '') {
-            setError('Please select both origin and destination accounts.');
-            return;
+            validationErrors.push('Please select both origin and destination accounts');
+        }
+
+        if (isNaN(amount) || amount === '') {
+            validationErrors.push('Amount must be a number');
         }
 
         if (originAccount === 'credit') {
-            setError('You cannot transfer funds from a credit account.');
-            return;
+            validationErrors.push('You cannot transfer funds from a credit account');
         }
 
-        const numericAmount = parseFloat(amount);
-        if (isNaN(numericAmount)) {
-            setError('Amount must be a number.');
-            return;
-        }
-
-        if (balances[originAccount] < numericAmount) {
-            setError('Insufficient funds in the origin account.');
+        if (validationErrors.length > 0) {
+            setErrors(validationErrors);
             return;
         }
 
         try {
-            console.log(`Attempting transfer: ${numericAmount} from ${originAccount} to ${destinationAccount}`);
-            await updateAccountBalance(userID, originAccount, balances[originAccount] - numericAmount);
-            await updateAccountBalance(userID, destinationAccount, balances[destinationAccount] + numericAmount);
+            await transferFunds('userID', 'userID', parseFloat(amount));
             navigate('/dashboard');
         } catch (error) {
-            console.error('Error during transfer:', error);
-            setError('An error occurred during the transfer. Please try again later.');
+            setErrors(['An error occurred during the transfer. Please try again later.']);
         }
     };
-
-    const availableAccounts = ['checking', 'savings', 'credit'];
 
     return (
         <div className="transfer">
             <h1>Transfer Between My Accounts</h1>
             <div className="form-container">
-                <form onSubmit={handleTransfer}>
+                <form onSubmit={handleSubmit} noValidate>
                     <div className="form-group">
-                        <label>Origin Account:</label>
+                        <label htmlFor="originAccount">Origin Account:</label>
                         <select
+                            id="originAccount"
                             value={originAccount}
                             onChange={(e) => setOriginAccount(e.target.value)}
                             required
                         >
                             <option value="">Select an account</option>
-                            {availableAccounts.filter(acc => acc !== 'credit').map(acc => (
-                                <option key={acc} value={acc}>
-                                    {acc.charAt(0).toUpperCase() + acc.slice(1)} Account
-                                </option>
-                            ))}
+                            <option value="checking">Checking Account</option>
+                            <option value="savings">Savings Account</option>
+                            <option value="credit">Credit Account</option>
                         </select>
                     </div>
                     <div className="form-group">
-                        <label>Destination Account:</label>
+                        <label htmlFor="destinationAccount">Destination Account:</label>
                         <select
+                            id="destinationAccount"
                             value={destinationAccount}
                             onChange={(e) => setDestinationAccount(e.target.value)}
                             required
-                            disabled={!originAccount}
                         >
                             <option value="">Select an account</option>
-                            {availableAccounts.filter(acc => acc !== originAccount).map(acc => (
-                                <option key={acc} value={acc}>
-                                    {acc.charAt(0).toUpperCase() + acc.slice(1)} Account
-                                </option>
-                            ))}
+                            <option value="checking">Checking Account</option>
+                            <option value="savings">Savings Account</option>
                         </select>
                     </div>
                     <div className="form-group">
-                        <label>Amount: <span className="hint">(Max 500.000)</span></label>
+                        <label htmlFor="amount">
+                            Amount:
+                            <span className="hint">(Max 500.000)</span>
+                        </label>
                         <input
-                            type="text"
+                            id="amount"
                             value={amount}
                             onChange={(e) => setAmount(e.target.value)}
-                            required
-                            pattern="\d*"
                             placeholder="Enter amount"
+                            required
+                            type="text"
                         />
                     </div>
-                    {error && <p className="error">{error}</p>}
+                    {errors.length > 0 && (
+                        <div data-testid="error-messages">
+                            {errors.map((error, index) => (
+                                <p key={index} className="error">
+                                    {error}
+                                </p>
+                            ))}
+                        </div>
+                    )}
                     <button type="submit">Transfer</button>
                 </form>
             </div>
@@ -129,8 +100,4 @@ const Transfer = ({ to }) => {
     );
 };
 
-Transfer.propTypes = {
-    to: PropTypes.string.isRequired,
-};
-
-export default Transfer;
+export default TransferBetweenMyAccounts;

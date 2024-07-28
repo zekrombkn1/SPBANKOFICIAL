@@ -39,6 +39,11 @@ const OpenSavingsAccountForm = () => {
         e.preventDefault();
         setError('');
 
+        if (!formData.birthday) {
+            setError('Please select your birthday.');
+            return;
+        }
+
         const age = new Date().getFullYear() - formData.birthday.getFullYear();
         if (age < 18) {
             setError('You must be at least 18 years old to open an account.');
@@ -53,7 +58,7 @@ const OpenSavingsAccountForm = () => {
                     return;
                 }
 
-                await createAccount(userInfo.userID, 'savings', 20000); // Create savings account with initial balance
+                await createAccount(userInfo.userID, 'savings', 5000); // Create savings account with initial balance
                 navigate('/dashboard');
             }
         } catch (error) {
@@ -84,22 +89,15 @@ const OpenSavingsAccountForm = () => {
                         </div>
                         <div className="card-body">
                             {error && (
-                                <>
-                                    <div className="alert alert-danger">{error}</div>
-                                    <button 
-                                        className="btn btn-primary btn-block styled-button" 
-                                        onClick={() => navigate('/dashboard')}
-                                    >
-                                        Volver a Home
-                                    </button>
-                                </>
+                                <div className="alert alert-danger">{error}</div>
                             )}
                             {!error && (
                                 <form onSubmit={handleSubmit}>
                                     <div className="form-row">
                                         <div className="form-group col-md-6">
-                                            <label className="form-label styled-label">Nombres:</label>
+                                            <label htmlFor="firstName" className="form-label styled-label">Nombres:</label>
                                             <input
+                                                id="firstName"
                                                 type="text"
                                                 className="form-control"
                                                 name="firstName"
@@ -108,8 +106,9 @@ const OpenSavingsAccountForm = () => {
                                             />
                                         </div>
                                         <div className="form-group col-md-6">
-                                            <label className="form-label styled-label">Apellido Paterno:</label>
+                                            <label htmlFor="lastName" className="form-label styled-label">Apellido Paterno:</label>
                                             <input
+                                                id="lastName"
                                                 type="text"
                                                 className="form-control"
                                                 name="lastName"
@@ -120,8 +119,9 @@ const OpenSavingsAccountForm = () => {
                                     </div>
                                     <div className="form-row">
                                         <div className="form-group col-md-6">
-                                            <label className="form-label styled-label">Situación Laboral:</label>
+                                            <label htmlFor="employmentStatus" className="form-label styled-label">Situación Laboral:</label>
                                             <select
+                                                id="employmentStatus"
                                                 className="form-control"
                                                 name="employmentStatus"
                                                 value={formData.employmentStatus}
@@ -134,8 +134,9 @@ const OpenSavingsAccountForm = () => {
                                             </select>
                                         </div>
                                         <div className="form-group col-md-6">
-                                            <label className="form-label styled-label">Tramo de renta líquido:</label>
+                                            <label htmlFor="incomeRange" className="form-label styled-label">Tramo de renta líquido:</label>
                                             <select
+                                                id="incomeRange"
                                                 className="form-control"
                                                 name="incomeRange"
                                                 value={formData.incomeRange}
@@ -150,13 +151,14 @@ const OpenSavingsAccountForm = () => {
                                         </div>
                                     </div>
                                     <div className="form-group">
-                                        <label className="form-label styled-label">Birthday:</label>
+                                        <label htmlFor="birthday" className="form-label styled-label">Birthday:</label>
                                         <DatePicker
                                             selected={formData.birthday}
                                             onChange={(date) => setFormData({ ...formData, birthday: date })}
                                             className="form-control"
                                             dateFormat="MM/dd/yyyy"
                                             required
+                                            id="birthday"
                                         />
                                     </div>
                                     <button type="submit" className="btn btn-primary btn-block styled-button">Submit</button>

@@ -1,25 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useGetUserInfo } from '../../hooks/useGetUserInfo';
 import { addPayment, getPayments, deductFromChecking } from '../Utils/firestoreUtils';
-import './PayAccount.css';
 
 const PayAccount = () => {
     const userInfo = useGetUserInfo();
-    const [amount, setAmount] = useState('');
     const [paymentName, setPaymentName] = useState('');
+    const [amount, setAmount] = useState('');
     const [payments, setPayments] = useState([]);
     const [error, setError] = useState('');
 
     useEffect(() => {
         const fetchPayments = async () => {
-            if (userInfo) {
-                try {
-                    const userPayments = await getPayments(userInfo.userID);
-                    const sortedPayments = userPayments.sort((a, b) => b.date - a.date);
-                    setPayments(sortedPayments);
-                } catch (error) {
-                    console.error('Error fetching payments:', error);
-                }
+            try {
+                const userPayments = await getPayments(userInfo.userID);
+                const sortedPayments = userPayments.sort((a, b) => b.date - a.date);
+                setPayments(sortedPayments);
+            } catch (error) {
+                console.error('Error fetching payments:', error);
             }
         };
 
@@ -28,35 +25,28 @@ const PayAccount = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!amount || !paymentName) {
+        if (!paymentName || !amount) {
             setError('Please fill in all fields');
             return;
         }
 
-        const numericAmount = parseFloat(amount);
-        if (isNaN(numericAmount)) {
+        if (isNaN(amount)) {
             setError('Amount must be a number');
             return;
         }
 
         try {
-            await deductFromChecking(userInfo.userID, numericAmount);
-            await addPayment(userInfo.userID, paymentName, numericAmount);
-            setError('');
+            await deductFromChecking(userInfo.userID, amount);
+            await addPayment(userInfo.userID, paymentName, amount);
             const userPayments = await getPayments(userInfo.userID);
-            const sortedPayments = userPayments.sort((a, b) => b.date - a.date);
-            setPayments(sortedPayments);
-            setAmount('');
+            setPayments(userPayments.sort((a, b) => b.date - a.date));
             setPaymentName('');
+            setAmount('');
+            setError('');
         } catch (error) {
-            console.error('Error processing payment:', error);
-            setError('An error occurred. Please try again.');
+            setError('An error occurred while processing your payment');
         }
     };
-
-    if (!userInfo) {
-        return <div>Loading...</div>;
-    }
 
     return (
         <div className="container mt-5">
@@ -67,29 +57,27 @@ const PayAccount = () => {
                             <h2 className="card-title styled-title">Pagar cuenta</h2>
                         </div>
                         <div className="card-body">
-                            {error && <div className="alert alert-danger">{error}</div>}
-                            <form onSubmit={handleSubmit}>
+                            {error && <div className="alert alert-danger" role="alert">{error}</div>}
+                            <form onSubmit={handleSubmit} noValidate>
                                 <div className="form-group">
-                                    <label className="form-label styled-label">Nombre del Pago:</label>
+                                    <label className="form-label styled-label" htmlFor="paymentName">Nombre del Pago:</label>
                                     <input
-                                        type="text"
                                         className="form-control"
+                                        id="paymentName"
                                         value={paymentName}
                                         onChange={(e) => setPaymentName(e.target.value)}
-                                        required
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <label className="form-label styled-label">Cantidad:</label>
+                                    <label className="form-label styled-label" htmlFor="amount">Cantidad:</label>
                                     <input
-                                        type="text"
                                         className="form-control"
+                                        id="amount"
                                         value={amount}
                                         onChange={(e) => setAmount(e.target.value)}
-                                        required
                                     />
                                 </div>
-                                <button type="submit" className="btn btn-primary btn-block styled-button">Pagar</button>
+                                <button className="btn btn-primary btn-block styled-button" type="submit">Pagar</button>
                             </form>
                         </div>
                     </div>
@@ -101,7 +89,7 @@ const PayAccount = () => {
                             <ul className="list-group scrollable-list">
                                 {payments.map((payment, index) => (
                                     <li key={index} className="list-group-item">
-                                         {payment.name}: ${payment.amount} - <strong>{new Date(payment.date.seconds * 1000).toLocaleDateString()} </strong> 
+                                        {payment.name} : ${payment.amount} - <strong>{new Date(payment.date).toLocaleDateString()}</strong>
                                     </li>
                                 ))}
                             </ul>
